@@ -40,12 +40,7 @@
     <div class="jumbotron">
         <h2>Spring Boot Kafka Producer</h2>
         <br/>
-        <form th:object="${kafkaForm}" method="post" action="">
-            Message:<br/>
-            <input th:field="*{message}" class="form-control"/>
-            <br/><br/>
-            <button type="button" class="btn btn-primary" onclick="location.href='/publish'">Send message</button>
-        </form>
+        The message was send to Kafka.
     </div>
 </div>
 </body>
