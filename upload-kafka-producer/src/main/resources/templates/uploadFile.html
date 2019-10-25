@@ -40,7 +40,14 @@
     <div class="jumbotron">
         <h2>Spring Boot Kafka Producer</h2>
         <br/>
-        <button type="button" class="btn btn-primary" onclick="location.href='/uploadFile'">Upload file</button>
+        <form th:object="${kafkaForm}" method="POST" action="/uploadFile" enctype="multipart/form-data">
+            Description:<br/>
+            <input th:field="*{description}" class="form-control"/>
+            <br/><br/>
+            File: <input th:field="*{fileData}" type="file" class="form-control"/>
+            <br />
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
     </div>
 </div>
 </body>

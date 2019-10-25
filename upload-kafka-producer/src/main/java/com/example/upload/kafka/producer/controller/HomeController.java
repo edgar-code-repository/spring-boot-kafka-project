@@ -20,12 +20,12 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        logger.debug("[HomeController][home][START]");
+        logger.info("[HomeController][home][START]");
 
         KafkaForm kafkaForm = new KafkaForm();
         model.addAttribute("kafkaForm", kafkaForm);
 
-        logger.debug("[HomeController][home][END]");
+        logger.info("[HomeController][home][END]");
         return "home";
     }
 
