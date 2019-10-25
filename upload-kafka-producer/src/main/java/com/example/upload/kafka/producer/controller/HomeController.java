@@ -20,21 +20,21 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        logger.debug("[UploadController][home][START]");
+        logger.debug("[HomeController][home][START]");
 
         KafkaForm kafkaForm = new KafkaForm();
         model.addAttribute("kafkaForm", kafkaForm);
 
-        logger.debug("[UploadController][home][END]");
+        logger.debug("[HomeController][home][END]");
         return "home";
     }
 
     @RequestMapping("/publish")
     public String sendMessageToKafka(@ModelAttribute("uploadForm") KafkaForm kafkaForm) {
-        logger.info("[KafkaController][sendMessageToKafkaTopic][message: " + kafkaForm.getMessage() + "]");
+        logger.info("[HomeController][sendMessageToKafka][message: " + kafkaForm.getMessage() + "]");
         this.kafkaProducer.sendMessage(kafkaForm.getMessage());
 
-        logger.info("[KafkaController][sendMessageToKafkaTopic][END]");
+        logger.info("[HomeController][sendMessageToKafka][END]");
         return "result";
     }
 
