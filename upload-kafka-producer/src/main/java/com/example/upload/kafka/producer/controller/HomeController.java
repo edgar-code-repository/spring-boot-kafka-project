@@ -1,6 +1,8 @@
 package com.example.upload.kafka.producer.controller;
 
 import com.example.upload.kafka.producer.form.KafkaForm;
+import com.example.upload.kafka.producer.model.FileUpload;
+import com.example.upload.kafka.producer.repository.FileUploadRepository;
 import com.example.upload.kafka.producer.services.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
 
     static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+    @Autowired
+    private FileUploadRepository fileUploadRepository;
 
     @Autowired
     private KafkaProducer kafkaProducer;
@@ -22,8 +29,8 @@ public class HomeController {
     public String home(Model model) {
         logger.info("[HomeController][home][START]");
 
-        KafkaForm kafkaForm = new KafkaForm();
-        model.addAttribute("kafkaForm", kafkaForm);
+        List<FileUpload> fileUploadList = fileUploadRepository.findAll();
+        model.addAttribute("fileUploadList", fileUploadList);
 
         logger.info("[HomeController][home][END]");
         return "home";

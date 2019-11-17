@@ -40,6 +40,30 @@
     <div class="jumbotron">
         <h2>Spring Boot Kafka Producer</h2>
         <br/>
+        <h3>Files uploaded:</h3>
+        <table width="100%" class="table table-striped table-bordered table-hover" id="files_table">
+            <thead>
+            <tr>
+                <th>Original Name</th>
+                <th>Filename</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${not #lists.isEmpty(fileUploadList)}" th:each="fileUploaded : ${fileUploadList}">
+                <td th:text="${fileUploaded.originalName}"></td>
+                <td th:text="${fileUploaded.filename}"></td>
+                <td th:text="${fileUploaded.description}"></td>
+                <td th:text="${#dates.format(fileUploaded.uploadDate, 'dd-MM-yyyy HH:mm')}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(fileUploadList)}">
+                <td colspan="4">No hay registros disponibles.</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <br/><br/>
         <button type="button" class="btn btn-primary" onclick="location.href='/uploadFile'">Upload file</button>
     </div>
 </div>
