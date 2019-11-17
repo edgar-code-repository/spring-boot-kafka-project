@@ -1,6 +1,8 @@
 package com.example.upload.kafka.producer.controller;
 
 import com.example.upload.kafka.producer.form.KafkaForm;
+import com.example.upload.kafka.producer.model.FileUpload;
+import com.example.upload.kafka.producer.repository.FileUploadRepository;
 import com.example.upload.kafka.producer.services.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,9 @@ public class UploadController {
 
     @Autowired
     private KafkaProducer kafkaProducer;
+
+    @Autowired
+    private FileUploadRepository fileUploadRepository;
 
     public UploadController() {
     }
@@ -77,7 +82,18 @@ public class UploadController {
 
                     logger.info("[UploadController][doUpload][file was uploaded: " + name + "]");
 
+                    FileUpload fileUpload = new FileUpload();
+                    fileUpload.setOriginalName(name);
+                    fileUpload.setFilename(dateString + "_" + name);
+                    fileUpload.setUploadPath(uploadRootDir.getAbsolutePath());
+                    fileUpload.setUploadDate(new Date());
+                    fileUpload.setDescription(description);
+
+                    fileUploadRepository.save(fileUpload);
+
                     flagUpload = true;
+
+                    logger.debug("[UploadController][doUpload][file was saved into db: " + fileUpload.toString() + "]");
                 } catch (Exception e) {
                     logger.info("[UploadController][doUpload][error: " + e.toString() + "]");
                 }
