@@ -18,9 +18,3 @@ Pantalla donde se ejecuta un upload de archivo:
 
 -----------------------------------------------------------------------------------------------------------------
 
-Una vez realizado el upload, se registra en base de datos y se gatilla llamada a Kafka
-para que la aplicación consumer sea notificada y procese el archivo subido:
-
-![Screenshot KafkaCall](screenshots/kafka_producer_result.png)
-
------------------------------------------------------------------------------------------------------------------
