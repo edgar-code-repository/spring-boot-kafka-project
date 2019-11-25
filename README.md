@@ -24,6 +24,6 @@ Pantalla donde se ejecuta un upload de archivo:
 
 Pantalla desplegada luego de subir un archivos y notificar a la aplicación Consumer:
 
-![Screenshot KafkaMessage](screenshots/kafka_producer_upload.png)
+![Screenshot KafkaMessage](screenshots/kafka_producer_message.png)
 
 -----------------------------------------------------------------------------------------------------------------
