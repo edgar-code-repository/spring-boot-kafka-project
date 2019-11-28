@@ -11,6 +11,7 @@ public class KafkaProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
     private static final String TOPIC = "kafka-message-example";
+    private static final String PROCESS_FILE_TOPIC = "kafka-process-file";
 
     @Autowired
     private KafkaTemplate<String,String> kafkaTemplate;
@@ -19,5 +20,11 @@ public class KafkaProducer {
         logger.info("[KafkaProducer][sendMessage][message: " + message + "]");
         this.kafkaTemplate.send(TOPIC, message);
     }
+
+    public void processFile(Integer fileUploadId) {
+        logger.info("[KafkaProducer][sendMessage][fileUploadId: " + fileUploadId + "]");
+        this.kafkaTemplate.send(PROCESS_FILE_TOPIC, String.valueOf(fileUploadId));
+    }
+
 
 }

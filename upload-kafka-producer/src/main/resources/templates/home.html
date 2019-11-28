@@ -48,6 +48,8 @@
                 <th>Filename</th>
                 <th>Description</th>
                 <th>Date</th>
+                <th>State</th>
+
             </tr>
             </thead>
             <tbody>
@@ -56,9 +58,13 @@
                 <td th:text="${fileUploaded.filename}"></td>
                 <td th:text="${fileUploaded.description}"></td>
                 <td th:text="${#dates.format(fileUploaded.uploadDate, 'dd-MM-yyyy HH:mm')}"></td>
+                <td th:switch="${fileUploaded.state}">
+                    <span th:case="P">Processing</span>
+                    <span th:case="C">Completed</span>
+                </td>
             </tr>
             <tr th:if="${#lists.isEmpty(fileUploadList)}">
-                <td colspan="4">No hay registros disponibles.</td>
+                <td colspan="5">No hay registros disponibles.</td>
             </tr>
 
             </tbody>

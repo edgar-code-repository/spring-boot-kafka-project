@@ -7,6 +7,7 @@ import com.example.upload.kafka.producer.services.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,6 +32,9 @@ public class UploadController {
     @Autowired
     private FileUploadRepository fileUploadRepository;
 
+    @Value("${upload.directory}")
+    private String uploadDirectory;
+
     public UploadController() {
     }
 
@@ -51,8 +55,10 @@ public class UploadController {
         logger.info("[UploadController][uploadFilePost][kafkaForm: " + kafkaForm + "]");
 
         String description = kafkaForm.getDescription();
-        String uploadRootPath = request.getServletContext().getRealPath("upload");
+        //String uploadRootPath = request.getServletContext().getRealPath("upload");
+        String uploadRootPath = uploadDirectory;
         MultipartFile fileData = kafkaForm.getFileData();
+        FileUpload fileUpload = new FileUpload();
         boolean flagUpload = false;
         String name = "";
         String message = "";
@@ -80,29 +86,30 @@ public class UploadController {
                     stream.write(fileData.getBytes());
                     stream.close();
 
-                    logger.info("[UploadController][doUpload][file was uploaded: " + name + "]");
+                    logger.info("[UploadController][uploadFilePost][file was uploaded: " + name + "]");
 
-                    FileUpload fileUpload = new FileUpload();
                     fileUpload.setOriginalName(name);
                     fileUpload.setFilename(dateString + "_" + name);
                     fileUpload.setUploadPath(uploadRootDir.getAbsolutePath());
                     fileUpload.setUploadDate(new Date());
                     fileUpload.setDescription(description);
+                    fileUpload.setState("P"); //Processing
 
-                    fileUploadRepository.save(fileUpload);
+                    fileUpload = fileUploadRepository.save(fileUpload);
 
                     flagUpload = true;
 
-                    logger.debug("[UploadController][doUpload][file was saved into db: " + fileUpload.toString() + "]");
+                    logger.info("[UploadController][uploadFilePost][file was saved into db: " + fileUpload.toString() + "]");
                 } catch (Exception e) {
-                    logger.info("[UploadController][doUpload][error: " + e.toString() + "]");
+                    logger.info("[UploadController][uploadFilePost][error: " + e.toString() + "]");
                 }
             }
         }
 
         if (flagUpload) {
             message = "File " + name + " was uploaded successfully!!!";
-            this.kafkaProducer.sendMessage(message);
+            //this.kafkaProducer.sendMessage(message);
+            this.kafkaProducer.processFile(fileUpload.getFileUploadId());
         }
         else {
             message = "File was NOT uploaded!!!";

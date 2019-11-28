@@ -15,4 +15,9 @@ public class KafkaConsumer {
         logger.info("[KafkaConsumer][consumeKafkaMessage][message consumed: " + message + "]");
     }
 
+    @KafkaListener(id="kafka-process-file", topics="kafka-process-file")
+    public void processFileUploaded(String fileUploadId) {
+        logger.info("[KafkaConsumer][processFileUploaded][fileUploadId: " + fileUploadId + "]");
+    }
+
 }

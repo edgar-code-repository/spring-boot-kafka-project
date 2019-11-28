@@ -16,6 +16,7 @@ public class FileUpload {
     private String description;
     private String uploadPath;
     private Date uploadDate;
+    private String state;
 
     public FileUpload() {
     }
@@ -23,11 +24,12 @@ public class FileUpload {
     public String toString() {
         return "FileUpload {" +
                 "fileUploadId=" + fileUploadId +
-                ", originalName='" + originalName + '\'' +
-                ", filename='" + filename + '\'' +
-                ", description='" + description + '\'' +
-                ", uploadPath='" + uploadPath + '\'' +
+                ", originalName='" + originalName  +
+                ", filename='" + filename  +
+                ", description='" + description  +
+                ", uploadPath='" + uploadPath  +
                 ", uploadDate=" + uploadDate +
+                ", state=" + state +
                 '}';
     }
 
@@ -77,6 +79,14 @@ public class FileUpload {
 
     public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
 }
