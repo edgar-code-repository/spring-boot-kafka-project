@@ -3,27 +3,37 @@ KAFKA PROJECT WITH SPRING BOOT
 
 Se desarrollan proyectos Spring Boot, que envían y reciben mensajes desde servidor Apache Kafka.
 
-En el proyecto "Producer" se puede realizar uploads de archivos.
+En el proyecto "Producer" se pueden realizar uploads de archivos.
 
 Una vez que un archivo fue subido al servidor, se almacena un registro en base de datos y
 se gatilla un mensaje a Kakfa, el cual es recibido por la aplicación "Consumer".
 
------------------------------------------------------------------------------------------------------------------
-
-En pagina inicial se despliega listado de uploads realizados:
-
-![Screenshot ListadoUpload](screenshots/kafka_producer_main.png)
+La aplicación "Consumer" recibe el mensaje del upload realizado, procesa el archivo y 
+cuando finaliza actualiza el estado del registro almacenado en la base de datos.
 
 -----------------------------------------------------------------------------------------------------------------
 
-Pantalla donde se ejecuta un upload de archivo:
+Página inicial de aplicación "Producer":
 
-![Screenshot UploadArchivo](screenshots/kafka_producer_upload.png)
+![Screenshot ConsumerMain](screenshots/kafka_project_main_page.png)
 
 -----------------------------------------------------------------------------------------------------------------
 
-Pantalla desplegada luego de subir un archivos y notificar a la aplicación Consumer:
+Página para realizar upload de archivo:
 
-![Screenshot KafkaMessage](screenshots/kafka_producer_message.png)
+![Screenshot UploadArchivo](screenshots/kafka_project_upload_page.png)
+
+-----------------------------------------------------------------------------------------------------------------
+
+Envío de mensaje a aplicación "Consumer" por medio de Kafka:
+
+![Screenshot KafkaMessage](screenshots/kafka_project_message.png)
+
+-----------------------------------------------------------------------------------------------------------------
+
+Una vez que la aplicación "Consumer" procesa el archivo, el registro pasa del 
+estado "Processing" al estado "Completed":
+
+![Screenshot KafkaMessage](screenshots/kafka_project_file_state_completed.png)
 
 -----------------------------------------------------------------------------------------------------------------
